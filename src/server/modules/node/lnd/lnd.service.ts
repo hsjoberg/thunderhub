@@ -108,6 +108,7 @@ export class LndService {
       getChannels({
         lnd: account.lnd,
         ...options,
+        is_public: true,
       })
     );
   }
