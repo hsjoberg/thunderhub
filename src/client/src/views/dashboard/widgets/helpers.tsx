@@ -12,6 +12,8 @@ import { widgetList, WidgetProps } from './widgetList';
 import { GetInvoicesQuery } from '../../../graphql/queries/__generated__/getInvoices.generated';
 import { GetPaymentsQuery } from '../../../graphql/queries/__generated__/getPayments.generated';
 
+const ONE_WEEK = 7;
+
 const getColumns = (width: number): number => {
   const { lg, md, sm, xs } = defaultGrid.breakpoints;
 
@@ -82,10 +84,14 @@ export const getByTime = (array: ArrayType, time: number): any[] => {
     fee?: number;
   }[] = [];
 
+  // check to see if we're working in days (isDay = false) or hours (isDay = true)
   const isDay = time <= 1;
 
-  const today = isDay ? new Date().setMinutes(0, 0, 0) : new Date().setHours(0, 0, 0, 0);
+  const today = isDay
+    ? new Date().setMinutes(0, 0, 0)
+    : new Date().setHours(0, 0, 0, 0);
 
+  // Look through each transaction in the array and build an array of transactions with the difference between today and the day (or hour) that the tx occurred
   array.forEach((transaction: ArrayType[0]) => {
     if (!transaction?.__typename) return;
 
@@ -93,8 +99,14 @@ export const getByTime = (array: ArrayType, time: number): any[] => {
       if (!transaction.is_confirmed || !transaction.confirmed_at) return;
 
       const difference = isDay
-        ? differenceInHours(today, new Date(transaction.confirmed_at).setMinutes(0, 0, 0))
-        : differenceInDays(today, new Date(transaction.confirmed_at).setHours(0, 0, 0, 0));
+        ? differenceInHours(
+            today,
+            new Date(transaction.confirmed_at).setMinutes(0, 0, 0)
+          )
+        : differenceInDays(
+            today,
+            new Date(transaction.confirmed_at).setHours(0, 0, 0, 0)
+          );
 
       transactions.push({
         difference,
@@ -105,8 +117,14 @@ export const getByTime = (array: ArrayType, time: number): any[] => {
       if (!transaction.is_confirmed) return;
 
       const difference = isDay
-        ? differenceInHours(today, new Date(transaction.created_at).setMinutes(0, 0, 0))
-        : differenceInDays(today, new Date(transaction.created_at).setHours(0, 0, 0, 0));
+        ? differenceInHours(
+            today,
+            new Date(transaction.created_at).setMinutes(0, 0, 0)
+          )
+        : differenceInDays(
+            today,
+            new Date(transaction.created_at).setHours(0, 0, 0, 0)
+          );
 
       transactions.push({
         difference,
@@ -115,8 +133,14 @@ export const getByTime = (array: ArrayType, time: number): any[] => {
       });
     } else if (transaction.__typename === 'Forward') {
       const difference = isDay
-        ? differenceInHours(today, new Date(transaction.created_at).setMinutes(0, 0, 0))
-        : differenceInDays(today, new Date(transaction.created_at).setHours(0, 0, 0, 0));
+        ? differenceInHours(
+            today,
+            new Date(transaction.created_at).setMinutes(0, 0, 0)
+          )
+        : differenceInDays(
+            today,
+            new Date(transaction.created_at).setHours(0, 0, 0, 0)
+          );
 
       transactions.push({
         difference,
@@ -129,11 +153,14 @@ export const getByTime = (array: ArrayType, time: number): any[] => {
 
   if (!transactions?.length) return [];
 
+  // Group the transactionw in the array according to the 'difference' property of the object
   const grouped = groupBy(transactions, 'difference');
 
   const final: any[] = [];
+
+  // If were working with a single day, divide the array in 24 pieces, one for each hour, otherwise, go back 7 days
   const differences = Array.from(
-    { length: isDay ? 24 : time },
+    { length: isDay ? 24 : time ? time : ONE_WEEK },
     (_, i) => i
   );
 
@@ -160,8 +187,8 @@ export const getByTime = (array: ArrayType, time: number): any[] => {
           date: total.date
             ? total.date
             : isDay
-              ? subHours(today, Number(key)).toISOString()
-              : subDays(today, Number(key)).toISOString(),
+            ? subHours(today, Number(key)).toISOString()
+            : subDays(today, Number(key)).toISOString(),
         };
       },
       {

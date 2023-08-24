@@ -2,6 +2,99 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.13.21](https://github.com/apotdevin/thunderhub/compare/v0.13.20...v0.13.21) (2023-08-19)
+
+
+### Features
+
+* dataloaders ([#561](https://github.com/apotdevin/thunderhub/issues/561)) ([bf1959f](https://github.com/apotdevin/thunderhub/commit/bf1959f4902aac493f714aec318c795220e2a02d))
+
+
+### Bug Fixes
+
+* channel table sorting fns ([#559](https://github.com/apotdevin/thunderhub/issues/559)) ([b7180a8](https://github.com/apotdevin/thunderhub/commit/b7180a8b0d2c8cb668183d051e0e22562a3dff8d))
+
+
+### Improvements
+
+* bump deps ([#560](https://github.com/apotdevin/thunderhub/issues/560)) ([d8b3ea8](https://github.com/apotdevin/thunderhub/commit/d8b3ea8b437d1b560639aeb066f9a005e8fc760a))
+* change column sorting ([3d4bdad](https://github.com/apotdevin/thunderhub/commit/3d4bdad565fdb2434d01d177748c9b211b765772))
+
+### [0.13.20](https://github.com/apotdevin/thunderhub/compare/v0.13.19...v0.13.20) (2023-07-25)
+
+
+### Features
+
+* add signet network ([#545](https://github.com/apotdevin/thunderhub/issues/545)) ([accdc5e](https://github.com/apotdevin/thunderhub/commit/accdc5e0ab659c3223745010af233161dfb0baf3))
+
+
+### Bug Fixes
+
+* new react table ([#538](https://github.com/apotdevin/thunderhub/issues/538)) ([edc7785](https://github.com/apotdevin/thunderhub/commit/edc77854f0cbfbb408011eb66b2ffbc3a016c6a1))
+* update lightning package ([#537](https://github.com/apotdevin/thunderhub/issues/537)) ([ffb955c](https://github.com/apotdevin/thunderhub/commit/ffb955c20386337ba52b0c633331cf90aba85faf))
+
+
+### Improvements
+
+* improve channel open ([#550](https://github.com/apotdevin/thunderhub/issues/550)) ([f63af91](https://github.com/apotdevin/thunderhub/commit/f63af9115ce839aa32da6465518db81952c46984))
+* run lint ([8a55db4](https://github.com/apotdevin/thunderhub/commit/8a55db4cb40ab2fcfea33977b4469b3513afb68a))
+
+### [0.13.19](https://github.com/apotdevin/thunderhub/compare/v0.13.18...v0.13.19) (2023-05-26)
+
+
+### Features
+
+* add channel id to channel select dropdown ([#531](https://github.com/apotdevin/thunderhub/issues/531)) ([3ecf7c5](https://github.com/apotdevin/thunderhub/commit/3ecf7c5646d87fb2d9c0fc3b3bc17161ef8bbc1e))
+* add post to keysend billboard on amboss page ([#522](https://github.com/apotdevin/thunderhub/issues/522)) ([6ea7d97](https://github.com/apotdevin/thunderhub/commit/6ea7d97ac8b41f6d10f9a80c16ebfb42f9721a89))
+* make accounting years dynamically update ([#517](https://github.com/apotdevin/thunderhub/issues/517)) ([5d1b093](https://github.com/apotdevin/thunderhub/commit/5d1b0932d5aaa9cecc01810d5b7103e205a914fb))
+
+
+### Improvements
+
+* add auto format on save ([#524](https://github.com/apotdevin/thunderhub/issues/524)) ([86a3490](https://github.com/apotdevin/thunderhub/commit/86a3490c2dfc4360c02463ecd6ae6459f57938de))
+* add config files to gitignore ([#523](https://github.com/apotdevin/thunderhub/issues/523)) ([22c32b2](https://github.com/apotdevin/thunderhub/commit/22c32b2b8d20bfc007da47725cbee8d7d0665a94))
+* bump deps ([ab72b16](https://github.com/apotdevin/thunderhub/commit/ab72b1607f9e68c55653b8b0cf0c457c39a5d54d))
+* change url ([e6f8177](https://github.com/apotdevin/thunderhub/commit/e6f81778d0e95162fd98a90b382960aa5f1db97c))
+
+
+### CI
+
+* add caching ([4b99ccf](https://github.com/apotdevin/thunderhub/commit/4b99ccfc8edc7d2ed70eccb037dd2e3ad24e3f0e))
+
+### [0.13.18](https://github.com/apotdevin/thunderhub/compare/v0.13.17...v0.13.18) (2022-12-06)
+
+
+### Improvements
+
+* extra queries and changes ([cb61a50](https://github.com/apotdevin/thunderhub/commit/cb61a5073a0f67730704ffa55abb214fde8b0ec4))
+
+### [0.13.17](https://github.com/apotdevin/thunderhub/compare/v0.13.16...v0.13.17) (2022-12-06)
+
+
+### Features
+
+* autofocus password input ([#492](https://github.com/apotdevin/thunderhub/issues/492)) ([c693fa1](https://github.com/apotdevin/thunderhub/commit/c693fa1d09222369ed7289c3075219df1dbcefe5))
+
+
+### Bug Fixes
+
+* balance calculation ([66735bd](https://github.com/apotdevin/thunderhub/commit/66735bd2e37ac091ce9c9611265f6a7dd4c77863))
+* invalid message ([8157d60](https://github.com/apotdevin/thunderhub/commit/8157d60a22909faca0fd692490084cd5c8435db5))
+* tooltip key in tx bar chart ([#491](https://github.com/apotdevin/thunderhub/issues/491)) ([ded19a1](https://github.com/apotdevin/thunderhub/commit/ded19a1d36f4911293a89937f0d2e09eeb45c912))
+* wrong error handling ([f310785](https://github.com/apotdevin/thunderhub/commit/f310785b165d61f66c1ebea963aff972171dca9c))
+
+
+### Docs
+
+* extra scripts ([a53918e](https://github.com/apotdevin/thunderhub/commit/a53918e30d7d05df5dddbbc938edaff30e0fc8a2))
+
+
+### Improvements
+
+* balance changes ([acdf43d](https://github.com/apotdevin/thunderhub/commit/acdf43da20426869f445de5632fb8185c86f526f))
+* improvements ([3c9fa41](https://github.com/apotdevin/thunderhub/commit/3c9fa41ab451f4db202eaff00e68b1a0d440e273))
+* npm audit fix ([8635881](https://github.com/apotdevin/thunderhub/commit/8635881a8251518561e2ad178fbf7a8954bb6836))
+
 ### [0.13.16](https://github.com/apotdevin/thunderhub/compare/v0.13.15...v0.13.16) (2022-09-13)
 
 

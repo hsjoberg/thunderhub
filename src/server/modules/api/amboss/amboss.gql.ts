@@ -91,8 +91,41 @@ export const pingHealthCheckMutation = gql`
   }
 `;
 
-export const pushBalancesMutation = gql`
-  mutation PushBalances($input: BalancePushInput!) {
-    pushBalances(input: $input)
+export const pushNodeBalancesMutation = gql`
+  mutation PushNodeBalances($input: ChannelBalancePushInput!) {
+    pushNodeBalances(input: $input)
+  }
+`;
+
+export const getNodeAliasBatchQuery = gql`
+  query GetNodeAliasBatch($pubkeys: [String!]!) {
+    getNodeAliasBatch(pubkeys: $pubkeys) {
+      alias
+      pub_key
+    }
+  }
+`;
+
+export const getEdgeInfoBatchQuery = gql`
+  query GetEdgeInfoBatch($ids: [String!]!) {
+    getEdgeInfoBatch(ids: $ids) {
+      short_channel_id
+      info {
+        node1_info {
+          node {
+            alias
+            pub_key
+          }
+        }
+        node1_pub
+        node2_info {
+          node {
+            alias
+            pub_key
+          }
+        }
+        node2_pub
+      }
+    }
   }
 `;

@@ -1,6 +1,5 @@
 import { FC } from 'react';
-import { Table } from '../../../../components/table';
-import { ChannelAlias } from './ChannelAlias';
+import Table from '../../../../components/table';
 
 export type RouteType = {
   route: string;
@@ -53,18 +52,24 @@ export const RouteTable: FC<RouteTableProps> = ({ order, forwardArray }) => {
   };
 
   const columns = [
-    { Header: 'In', accessor: 'aliasIn' },
-    { Header: 'Out', accessor: 'aliasOut' },
-    { Header: getTitle(), accessor: getAccesor() },
+    {
+      header: 'In',
+      accessorKey: 'incoming_alias',
+      cell: ({ cell }: any) => cell.renderValue(),
+    },
+    {
+      header: 'Out',
+      accessorKey: 'outgoing_alias',
+      cell: ({ cell }: any) => cell.renderValue(),
+    },
+    {
+      header: getTitle(),
+      accessorKey: getAccesor(),
+      cell: ({ cell }: any) => cell.renderValue(),
+    },
   ];
 
-  const tableData = forwardArray.map(f => ({
-    ...f,
-    aliasIn: <ChannelAlias id={f.incoming_channel} />,
-    aliasOut: <ChannelAlias id={f.outgoing_channel} />,
-  }));
-
-  return <Table tableData={tableData} tableColumns={columns} />;
+  return <Table data={forwardArray} columns={columns} withSorting={true} />;
 };
 
 export const ChannelTable: FC<ChannelTableProps> = ({
@@ -94,15 +99,22 @@ export const ChannelTable: FC<ChannelTableProps> = ({
   };
 
   const columns = [
-    { Header: 'Alias', accessor: 'alias' },
-    { Header: 'Id', accessor: 'name' },
-    { Header: getTitle(), accessor: getAccesor() },
+    {
+      header: 'Alias',
+      accessorKey: 'alias',
+      cell: ({ cell }: any) => cell.renderValue(),
+    },
+    {
+      header: 'Id',
+      accessorKey: 'name',
+      cell: ({ cell }: any) => cell.renderValue(),
+    },
+    {
+      header: getTitle(),
+      accessorKey: getAccesor(),
+      cell: ({ cell }: any) => cell.renderValue(),
+    },
   ];
 
-  const tableData = forwardArray.map(f => ({
-    ...f,
-    alias: <ChannelAlias id={f.channelId} />,
-  }));
-
-  return <Table tableData={tableData} tableColumns={columns} />;
+  return <Table data={forwardArray} columns={columns} withSorting={true} />;
 };

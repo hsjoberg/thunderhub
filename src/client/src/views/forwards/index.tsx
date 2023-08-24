@@ -4,10 +4,9 @@ import { getDateDif } from '../../components/generic/helpers';
 import { DarkSubTitle } from '../../components/generic/Styled';
 import { LoadingCard } from '../../components/loading/LoadingCard';
 import { Price } from '../../components/price/Price';
-import { Table } from '../../components/table';
 import { useGetForwardsQuery } from '../../graphql/queries/__generated__/getForwards.generated';
 import { getErrorContent } from '../../utils/error';
-import { ChannelAlias } from '../home/reports/forwardReport/ChannelAlias';
+import Table from '../../components/table';
 
 type ForwardProps = {
   days: number;
@@ -25,8 +24,8 @@ export const ForwardsList: FC<ForwardProps> = ({ days }) => {
     return channelData.map(c => {
       return {
         ...c,
-        incoming_name: <ChannelAlias id={c.incoming_channel} />,
-        outgoing_name: <ChannelAlias id={c.outgoing_channel} />,
+        incoming_name: c.incoming_channel_info.node2_info.alias || '',
+        outgoing_name: c.outgoing_channel_info.node2_info.alias || '',
       };
     });
   }, [data]);
@@ -34,30 +33,30 @@ export const ForwardsList: FC<ForwardProps> = ({ days }) => {
   const columns = useMemo(
     () => [
       {
-        Header: 'Date',
-        accessor: 'created_at',
-        Cell: ({ row }: any) => (
+        header: 'Date',
+        accessorKey: 'created_at',
+        cell: ({ row }: any) => (
           <div style={{ whiteSpace: 'nowrap' }}>
             {`${getDateDif(row.original.created_at)} ago`}
           </div>
         ),
       },
       {
-        Header: 'Sats',
+        header: 'Sats',
         columns: [
           {
-            Header: 'Forwarded',
-            accessor: 'tokens',
-            Cell: ({ row }: any) => (
+            header: 'Forwarded',
+            accessorKey: 'tokens',
+            cell: ({ row }: any) => (
               <div style={{ whiteSpace: 'nowrap' }}>
                 <Price amount={row.original.tokens} />
               </div>
             ),
           },
           {
-            Header: 'Earned',
-            accessor: 'fee',
-            Cell: ({ row }: any) => (
+            header: 'Earned',
+            accessorKey: 'fee',
+            cell: ({ row }: any) => (
               <div style={{ whiteSpace: 'nowrap' }}>
                 <Price amount={row.original.fee} />
               </div>
@@ -66,28 +65,32 @@ export const ForwardsList: FC<ForwardProps> = ({ days }) => {
         ],
       },
       {
-        Header: 'Peer',
+        header: 'Peer',
         columns: [
           {
-            Header: 'Incoming',
-            accessor: 'incoming_name',
+            header: 'Incoming',
+            accessorKey: 'incoming_name',
+            cell: ({ cell }: any) => cell.renderValue(),
           },
           {
-            Header: 'Outgoing',
-            accessor: 'outgoing_name',
+            header: 'Outgoing',
+            accessorKey: 'outgoing_name',
+            cell: ({ cell }: any) => cell.renderValue(),
           },
         ],
       },
       {
-        Header: 'Channel',
+        header: 'Channel',
         columns: [
           {
-            Header: 'Incoming',
-            accessor: 'incoming_channel',
+            header: 'Incoming',
+            accessorKey: 'incoming_channel',
+            cell: ({ cell }: any) => cell.renderValue(),
           },
           {
-            Header: 'Outgoing',
-            accessor: 'outgoing_channel',
+            header: 'Outgoing',
+            accessorKeyKey: 'outgoing_channel',
+            cell: ({ cell }: any) => cell.renderValue(),
           },
         ],
       },
@@ -104,6 +107,11 @@ export const ForwardsList: FC<ForwardProps> = ({ days }) => {
   }
 
   return (
-    <Table withBorder={true} tableColumns={columns} tableData={tableData} />
+    <Table
+      withBorder={true}
+      columns={columns}
+      data={tableData}
+      withSorting={true}
+    />
   );
 };

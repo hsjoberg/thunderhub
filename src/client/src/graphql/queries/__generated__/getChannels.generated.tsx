@@ -4,7 +4,7 @@ import { gql } from '@apollo/client';
 import * as Apollo from '@apollo/client';
 const defaultOptions = {} as const;
 export type GetChannelsQueryVariables = Types.Exact<{
-  active?: Types.InputMaybe<Types.Scalars['Boolean']>;
+  active?: Types.InputMaybe<Types.Scalars['Boolean']['input']>;
 }>;
 
 export type GetChannelsQuery = {
@@ -66,6 +66,23 @@ export type GetChannelsQuery = {
         min_htlc_mtokens?: string | null;
       } | null;
     } | null;
+  }>;
+};
+
+export type GetChannelsWithPeersQueryVariables = Types.Exact<{
+  active?: Types.InputMaybe<Types.Scalars['Boolean']['input']>;
+}>;
+
+export type GetChannelsWithPeersQuery = {
+  __typename?: 'Query';
+  getChannels: Array<{
+    __typename?: 'Channel';
+    id: string;
+    partner_public_key: string;
+    partner_node_info: {
+      __typename?: 'Node';
+      node?: { __typename?: 'NodeType'; alias: string } | null;
+    };
   }>;
 };
 
@@ -175,4 +192,68 @@ export type GetChannelsLazyQueryHookResult = ReturnType<
 export type GetChannelsQueryResult = Apollo.QueryResult<
   GetChannelsQuery,
   GetChannelsQueryVariables
+>;
+export const GetChannelsWithPeersDocument = gql`
+  query GetChannelsWithPeers($active: Boolean) {
+    getChannels(active: $active) {
+      id
+      partner_public_key
+      partner_node_info {
+        node {
+          alias
+        }
+      }
+    }
+  }
+`;
+
+/**
+ * __useGetChannelsWithPeersQuery__
+ *
+ * To run a query within a React component, call `useGetChannelsWithPeersQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetChannelsWithPeersQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetChannelsWithPeersQuery({
+ *   variables: {
+ *      active: // value for 'active'
+ *   },
+ * });
+ */
+export function useGetChannelsWithPeersQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    GetChannelsWithPeersQuery,
+    GetChannelsWithPeersQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    GetChannelsWithPeersQuery,
+    GetChannelsWithPeersQueryVariables
+  >(GetChannelsWithPeersDocument, options);
+}
+export function useGetChannelsWithPeersLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetChannelsWithPeersQuery,
+    GetChannelsWithPeersQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    GetChannelsWithPeersQuery,
+    GetChannelsWithPeersQueryVariables
+  >(GetChannelsWithPeersDocument, options);
+}
+export type GetChannelsWithPeersQueryHookResult = ReturnType<
+  typeof useGetChannelsWithPeersQuery
+>;
+export type GetChannelsWithPeersLazyQueryHookResult = ReturnType<
+  typeof useGetChannelsWithPeersLazyQuery
+>;
+export type GetChannelsWithPeersQueryResult = Apollo.QueryResult<
+  GetChannelsWithPeersQuery,
+  GetChannelsWithPeersQueryVariables
 >;
